@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Video to Audio</title>
+  <link rel="stylesheet" href="/src/assets/css/style.css" />
+</head>
+<body class="bg-white p-6">
+  <h2 class="text-2xl font-bold mb-4 text-blue-600">Video to Audio Converter</h2>
+  <input type="file" id="videoInput" accept="video/*" class="mb-4 block" />
+  <button onclick="extractAudio()" class="bg-blue-500 text-white px-4 py-2 rounded">Convert to Audio</button>
+  <p id="status" class="mt-4 text-green-600"></p>
+  <footer class="mt-10 text-sm text-gray-500">© 2025 Toolzenix.com — Created by Faisal Mehmood</footer>
+
+  <script>
+    function extractAudio() {
+      const input = document.getElementById('videoInput');
+      const status = document.getElementById('status');
+      if (!input.files.length) {
+        status.textContent = "Please upload a video file.";
+        return;
+      }
+      // Simulated result
+      status.textContent = "Audio extracted successfully (demo only)";
+    }
+  </script>
+</body>
+</html>
