@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Image tools - compress, convert, resize, and more. All tools work instantly in your browser.">
+    <title>Image Tools | Toolzenix</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-tools"></i> Toolzenix</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../privacy.html">Privacy</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-container">
+        <div class="container">
+            <div class="tool-header">
+                <h1><i class="fas fa-image"></i> Image Tools</h1>
+                <p>Compress, convert, resize, and enhance your images with our free online tools. No installation needed.</p>
+            </div>
+
+            <div class="tool-content" id="compressor">
+                <h2>Image Compressor</h2>
+                <p>Reduce the file size of your images without significant quality loss.</p>
+                
+                <div class="tool-options">
+                    <label for="image-upload">Upload Image:</label>
+                    <input type="file" id="image-upload" accept="image/*">
+                    
+                    <label for="compression-quality">Compression Quality (0-100):</label>
+                    <input type="range" id="compression-quality" min="0" max="100" value="80">
+                    <span id="quality-value">80%</span>
+                    
+                    <div class="tool-actions">
+                        <button id="compress-btn" class="btn">Compress Image</button>
+                    </div>
+                </div>
+                
+                <div class="tool-result" id="compression-result" style="display: none;">
+                    <h3>Result</h3>
+                    <div id="original-info"></div>
+                    <div id="compressed-info"></div>
+                    <div id="compression-ratio"></div>
+                    <a id="download-btn" class="btn" download="compressed.jpg">Download Compressed Image</a>
+                </div>
+            </div>
+
+            <div class="tool-content" id="converter">
+                <h2>Image Format Converter</h2>
+                <p>Convert your images between JPG, PNG, GIF, and other formats.</p>
+                
+                <div class="tool-options">
+                    <label for="convert-upload">Upload Image:</label>
+                    <input type="file" id="convert-upload" accept="image/*">
+                    
+                    <label for="target-format">Convert To:</label>
+                    <select id="target-format">
+                        <option value="jpg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WebP</option>
+                        <option value="gif">GIF</option>
+                    </select>
+                    
+                    <div class="tool-actions">
+                        <button id="convert-btn" class="btn">Convert Image</button>
+                    </div>
+                </div>
+                
+                <div class="tool-result" id="conversion-result" style="display: none;">
+                    <h3>Converted Image</h3>
+                    <div id="converted-image-container"></div>
+                    <a id="download-converted-btn" class="btn" download="converted">Download Converted Image</a>
+                </div>
+            </div>
+
+            <div class="related-tools">
+                <h2>More Image Tools</h2>
+                <div class="related-tools-grid">
+                    <a href="#resizer" class="related-tool-card">
+                        <h4>Image Resizer</h4>
+                        <p>Change dimensions of your images</p>
+                    </a>
+                    <a href="#cropper" class="related-tool-card">
+                        <h4>Image Cropper</h4>
+                        <p>Crop images to specific dimensions</p>
+                    </a>
+                    <a href="#background-remover" class="related-tool-card">
+                        <h4>Background Remover</h4>
+                        <p>Remove backgrounds from images</p>
+                    </a>
+                    <a href="#enhancer" class="related-tool-card">
+                        <h4>Image Enhancer</h4>
+                        <p>Improve quality of your images</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Image Compressor Implementation
+        document.getElementById('compression-quality').addEventListener('input', function() {
+            document.getElementById('quality-value').textContent = this.value + '%';
+        });
+
+        document.getElementById('compress-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('image-upload');
+            const quality = document.getElementById('compression-quality').value / 100;
+            
+            if (fileInput.files.length === 0) {
+                alert('Please select an image file first');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // Show original info
+                    const originalInfo = document.getElementById('original-info');
+                    originalInfo.innerHTML = `
+                        <p><strong>Original Image:</strong> ${(file.size / 1024).toFixed(2)} KB, 
+                        ${img.width}×${img.height} pixels</p>
+                    `;
+                    
+                    // Compress image
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    
+                    canvas.toBlob(function(blob) {
+                        const compressedUrl = URL.createObjectURL(blob);
+                        
+                        // Show compressed info
+                        const compressedInfo = document.getElementById('compressed-info');
+                        compressedInfo.innerHTML = `
+                            <p><strong>Compressed Image:</strong> ${(blob.size / 1024).toFixed(2)} KB</p>
+                        `;
+                        
+                        // Show compression ratio
+                        const ratio = document.getElementById('compression-ratio');
+                        const reduction = ((file.size - blob.size) / file.size * 100).toFixed(2);
+                        ratio.innerHTML = `
+                            <p><strong>Reduction:</strong> ${reduction}% smaller</p>
+                        `;
+                        
+                        // Set up download button
+                        const downloadBtn = document.getElementById('download-btn');
+                        downloadBtn.href = compressedUrl;
+                        downloadBtn.download = 'compressed_' + file.name;
+                        
+                        // Show result section
+                        document.getElementById('compression-result').style.display = 'block';
+                    }, file.type, quality);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Image Converter Implementation
+        document.getElementById('convert-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('convert-upload');
+            const format = document.getElementById('target-format').value;
+            
+            if (fileInput.files.length === 0) {
+                alert('Please select an image file first');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    
+                    let mimeType;
+                    switch(format) {
+                        case 'jpg': mimeType = 'image/jpeg'; break;
+                        case 'png': mimeType = 'image/png'; break;
+                        case 'webp': mimeType = 'image/webp'; break;
+                        case 'gif': mimeType = 'image/gif'; break;
+                        default: mimeType = 'image/jpeg';
+                    }
+                    
+                    canvas.toBlob(function(blob) {
+                        const convertedUrl = URL.createObjectURL(blob);
+                        
+                        // Display converted image
+                        const container = document.getElementById('converted-image-container');
+                        container.innerHTML = `
+                            <img src="${convertedUrl}" alt="Converted Image" style="max-width: 100%; height: auto;">
+                        `;
+                        
+                        // Set up download button
+                        const downloadBtn = document.getElementById('download-converted-btn');
+                        downloadBtn.href = convertedUrl;
+                        downloadBtn.download = 'converted.' + format;
+                        
+                        // Show result section
+                        document.getElementById('conversion-result').style.display = 'block';
+                    }, mimeType, 0.92);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
