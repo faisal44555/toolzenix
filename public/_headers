@@ -1,0 +1,9 @@
+# Set a default caching policy for all files.
+# `must-revalidate` ensures the browser always checks for a fresh version of core pages like index.html.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Cache all static assets (JS, CSS, fonts, images) with versioned filenames for 30 days.
+# `immutable` tells the browser it doesn't need to revalidate these files, speeding up repeat visits.
+/assets/*
+  Cache-Control: public, max-age=2592000, immutable

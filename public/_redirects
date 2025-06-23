@@ -1,0 +1,93 @@
+# Redirect all www.toolzenix.com to toolzenix.com (301 permanent redirect)
+https://www.toolzenix.com/* https://toolzenix.com/:splat 301!
+http://www.toolzenix.com/* https://toolzenix.com/:splat 301!
+
+# Force HTTPS for non-www
+http://toolzenix.com/* https://toolzenix.com/:splat 301!
+
+# Specific tool redirects (www to non-www)
+https://www.toolzenix.com/image-tools/* https://toolzenix.com/image-converters/:splat 301!
+https://www.toolzenix.com/video-tools/* https://toolzenix.com/video-converters/:splat 301!
+https://www.toolzenix.com/text-tools/* https://toolzenix.com/text-tools/:splat 301!
+https://www.toolzenix.com/developer-tools/* https://toolzenix.com/developer-tools/:splat 301!
+https://www.toolzenix.com/color-tools/* https://toolzenix.com/color-tools/:splat 301!
+https://www.toolzenix.com/unit-converters/* https://toolzenix.com/unit-converters/:splat 301!
+https://www.toolzenix.com/security-tools/* https://toolzenix.com/security-tools/:splat 301!
+https://www.toolzenix.com/miscellaneous-tools/* https://toolzenix.com/miscellaneous-tools/:splat 301!
+
+# Blog redirects
+https://www.toolzenix.com/blog/* https://toolzenix.com/blog/:splat 301!
+
+# Tool-specific redirects
+https://www.toolzenix.com/image-brightness https://toolzenix.com/image-brightness 301!
+https://www.toolzenix.com/html-minifier-beautifier https://toolzenix.com/html-minifier-beautifier 301!
+https://www.toolzenix.com/lorem-ipsum-generator https://toolzenix.com/lorem-ipsum-generator 301!
+https://www.toolzenix.com/image-pixelator https://toolzenix.com/image-pixelator 301!
+https://www.toolzenix.com/text-to-uppercase https://toolzenix.com/text-to-uppercase 301!
+https://www.toolzenix.com/ico-converter https://toolzenix.com/ico-converter 301!
+https://www.toolzenix.com/qr-code-generator https://toolzenix.com/qr-code-generator 301!
+https://www.toolzenix.com/gradient-generator https://toolzenix.com/gradient-generator 301!
+https://www.toolzenix.com/temperature-converter https://toolzenix.com/temperature-converter 301!
+https://www.toolzenix.com/pressure-converter https://toolzenix.com/pressure-converter 301!
+https://www.toolzenix.com/password-strength-checker https://toolzenix.com/password-strength-checker 301!
+https://www.toolzenix.com/audio-converter https://toolzenix.com/mp3-tools 301!
+https://www.toolzenix.com/privacy https://toolzenix.com/privacy-policy 301!
+https://www.toolzenix.com/tools/image https://toolzenix.com/image-converters 301!
+https://www.toolzenix.com/web-converters https://toolzenix.com/developer-tools 301!
+https://www.toolzenix.com/tool/image/image-to-base64 https://toolzenix.com/image-to-base64 301!
+https://www.toolzenix.com/audio-converters https://toolzenix.com/mp3-tools 301!
+https://www.toolzenix.com/ebook-converters https://toolzenix.com/document-converters 301!
+https://www.toolzenix.com/software-converters https://toolzenix.com/developer-tools 301!
+https://www.toolzenix.com/drive-converters https://toolzenix.com/file-tools 301!
+https://www.toolzenix.com/tool/image/remove-white-background https://toolzenix.com/image-tools 301!
+
+# NEW REDIRECTS TO FIX 404s
+/mp3-metadata-viewer /mp3-tools 301!
+/remove-line-breaks /text-tools 301!
+/time-zone-converter /calendar-time-tools 301!
+/css-color-code-generator /color-tools 301!
+/date-time-countdown-timer /calendar-time-tools 301!
+/document-tools /document-converters 301!
+/image-tools /image-converters 301!
+/hex-to-rgb-converter /color-tools 301!
+/social-media-character-counter /social-media-tools 301!
+/random-number-generator /miscellaneous-tools 301!
+/truth-or-dare-generator /game-tools 301!
+/coin-flip-simulator /game-tools 301!
+/fun-fact-generator /miscellaneous-tools 301!
+/fortune-cookie-generator /miscellaneous-tools 301!
+/rock-paper-scissors /game-tools 301!
+/molar-mass-calculator /science-tools 301!
+/physics-formula-calculator /science-tools 301!
+/text-to-binary /text-tools 301!
+/remove-empty-lines /text-tools 301!
+/datetime-age-calculator /calendar-time-tools 301!
+/credit-card-payoff-calculator /finance-tools 301!
+/ai-image-caption-generator /ai-tools 301!
+/ideal-weight-calculator /health-fitness-tools 301!
+/manual-heart-rate-checker /health-fitness-tools 301!
+/playing-card-picker /game-tools 301!
+/color-code-converter /color-tools 301!
+/morse-code-converter /language-tools 301!
+/sha256-generator /security-tools 301!
+/word-occurrence-counter /text-tools 301!
+/remove-duplicate-lines /text-tools 301!
+/remove-extra-spaces /text-tools 301!
+/screen-resolution-checker /system-tools 301!
+/weight-converter /unit-converters 301!
+/device-orientation-tester /system-tools 301!
+/battery-status-checker /system-tools 301!
+/game-coin-toss /game-tools 301!
+/md5-generator /security-tools 301!
+
+# Path corrections
+/line-break-remover /remove-line-breaks 301!
+/hex-to-rgb /hex-to-rgb-converter 301!
+/social-character-counter /social-media-character-counter 301!
+/image-base64 /image-to-base64 301!
+
+# Catch-all redirect for any remaining www URLs
+https://www.toolzenix.com https://toolzenix.com/ 301!
+
+# SPA fallback
+/* /index.html 200
